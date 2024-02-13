@@ -7,15 +7,16 @@
 const request = require('supertest');
 const express = require('express');
 
-const app = require('../app'); // Update the relative path according to the project structure
+const {app,server} = require('../app'); // Update the relative path according to the project structure
 
 describe('CORS Middleware', () => {
   beforeAll(() => {
     // If there's any initialization that needs to happen for all tests, it would go here.
   });
 
-  afterAll(() => {
-    // If there's any cleanup that needs to happen after all tests, it would go here.
+  afterAll(done => {
+    // If there's any cleanup that needs to happen after all tests, it would go here.'
+    server.close(done);
   });
 
   test('Should allow cross-origin resource sharing for all incoming requests', async () => {
@@ -29,9 +30,9 @@ describe('CORS Middleware', () => {
   test('Should allow any header for cross-origin resource sharing', async () => {
     const response = await request(app)
       .get('/') // This would hit the root of the server, change if needed
-      .expect('Access-Control-Allow-Headers', '*');
-    
-    expect(response.headers['access-control-allow-headers']).toBe('*');
+      .expect('Access-Control-Allow-Header', '*');
+
+    expect(response.headers['access-control-allow-header']).toBe('*');
   });
 
   test('Should apply CORS rules to all HTTP methods', async () => {

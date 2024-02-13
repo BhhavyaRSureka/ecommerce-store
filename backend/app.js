@@ -1,7 +1,6 @@
 const express = require("express");
 const PORT = process.env.PORT || 5000;
 const app = express();
-require("./db");
 const productRoute = require("./routes/product");
 const authRoute = require("./routes/auth");
 const path = require("path");
@@ -31,4 +30,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 // listen to the port
-app.listen(PORT);
+const server = app.listen(PORT);
+
+module.exports = { app, server };
